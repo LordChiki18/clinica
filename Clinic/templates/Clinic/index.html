@@ -1,1 +1,33 @@
-{%  %}
+{% extends "Clinic/base.html" %}
+
+{% block page_header %}
+    <div class="jumbotron">
+        <h1 class="display-3">Atencion Medica.</h1>
+        <p class="lead">Registro de Pacientes y sus respectivos signos vitales (RAC)</p>
+
+    </div>
+{% endblock page_header %}
+
+{% block content %}
+    <section>
+        <h2>Funciones:</h2>
+        <ul>
+            <li>Registro de Pacientes.</li>
+            <li>Almacenamiento de datos de Pacientes y signos vitales.</li>
+            <li>Visualizacion de datos de Pacientes y signos vitales.</li>
+            <li>Edicion de datos de Pacientes y signos vitales.</li>
+            <li>Eliminacion de datos de Pacientes y signos vitales.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>How It Works:</h2>
+        <ol>
+            <li>Registro e inicio de sesion</li>
+            <li>Registra tus signos vitales y editalos</li>
+            <li>Registra tus signos vitales y editalos</li>
+            <li>Manten organizado por fecha tus signos</li>
+        </ol>
+    </section>
+
+{% endblock content %}
