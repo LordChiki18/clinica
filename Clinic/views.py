@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 from django.shortcuts import render, redirect
 
-from .forms import userForm
-from .models import Paciente
+from .forms import userForm, racForm
+from .models import Paciente, Rac
 
 
 def index(request):
@@ -11,13 +12,28 @@ def index(request):
 
 @login_required
 def getPacientes(request):
-    users = Paciente.objects.filter(owner=request.user).order_by('fecha_nacimiento')
-    context = {'users': users}
-    return render(request, 'Clinic/users.html', context)
+
+    pacientes = Paciente.objects.filter(owner=request.user).order_by('date_added')
+    context = {'pacientes': pacientes}
+    return render(request, 'Clinic/pacientes.html', context)
 
 
 @login_required
-def registro_paciente(request):
+def getPaciente(request, paciente_id):
+    paciente = Paciente.objects.get(id=paciente_id)
+
+    if paciente.owner != request.user:
+        raise Http404
+    datos = Rac.objects.filter(paciente=paciente).order_by('-date_added')
+    context = {
+        'paciente': paciente,
+        'datos': datos
+    }
+    return render(request, 'Clinic/paciente.html', context)
+
+
+@login_required
+def newPaciente(request):
     if request.method != 'POST':
         form = userForm()
     else:
@@ -29,7 +45,53 @@ def registro_paciente(request):
             return redirect('Clinic:getPacientes')
 
     context = {'form': form}
-    return render(request, 'Clinic/registro_paciente.html', context)
+    return render(request, 'Clinic/newPaciente.html', context)
+
+
+@login_required
+def newRac(request, paciente_id):
+    paciente = Paciente.objects.get(id=paciente_id)
+    if paciente.owner != request.user:
+        raise Http404
+
+    if request.method != 'POST':
+        form = racForm()
+    else:
+        form = racForm(data=request.POST)
+        if form.is_valid():
+            new_rac = form.save(commit=False)
+            new_rac.paciente = paciente
+            new_rac.save()
+            return redirect('Clinic:getPaciente', paciente_id=paciente_id)
+
+    context = {'paciente': paciente, 'form': form}
+    return render(request, 'Clinic/newRac.html', context)
+
+
+def editRac(request, rac_id):
+    rac = Rac.objects.get(id=rac_id)
+    paciente = rac.paciente
+    if paciente.owner != request.user:
+        raise Http404
+
+    if request.method != 'POST':
+        form = racForm(instance=rac)
+    else:
+        form = racForm(instance=rac, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('Clinic:getPaciente', paciente_id=paciente.id)
+
+    context = {'rac': rac, 'paciente': paciente, 'form': form}
+    return render(request, 'Clinic/editRac.html', context)
+
+def removeRac(request, rac_id):
+    rac = Rac.objects.get(id=rac_id)
+    paciente = rac.paciente
+    if paciente.owner != request.user:
+        raise Http404
+    rac.delete()
+    return redirect('Clinic:getPaciente', paciente_id=paciente.id)
 
 
 def handler404(request, *args, **argv):
@@ -37,3 +99,5 @@ def handler404(request, *args, **argv):
     response = render('learning_logs/404.html', {})
     response.status_code = 404
     return response
+
+

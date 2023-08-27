@@ -1,0 +1,36 @@
+{% extends 'Clinic/base.html' %}
+{% block page_header %}
+    <h3>
+        Usuario: {{ paciente }}
+    </h3>
+{% endblock page_header %}
+
+{% block content %}
+    <h3>Rac</h3>
+    <p>Registra signos vitales y otros datos</p>
+    <p>
+        <a href="{% url 'Clinic:newRac' paciente.id %}">Agregar Registro</a>
+    </p>
+    <hr>
+    {% for dato in datos  %}
+        <div class="card mb-3">
+            <h4 class="card-header">
+                {{ dato.date_added|date:'M d, Y H:i' }} |
+                <small>
+                    <p>
+                        <a href="{% url 'Clinic:editRac' dato.id %}">Editar</a>
+                        <a href="{% url 'Clinic:removeRac' dato.id %}">Eliminar</a>
+                    </p>
+                </small>
+            </h4>
+            <div class="card-body">
+                <p>Frecuencia: {{ dato.Frecuencia }}</p>
+                <p>Presion: {{ dato.Presion }}</p>
+                <p>Edad: {{ dato.edad }}</p>
+                <p>Fecha de Nacimiento: {{ dato.fecha_nacimiento }}</p>
+            </div>
+        </div>
+    {% empty %}
+        <li>No existen registros.</li>
+    {% endfor %}
+{% endblock content %}
