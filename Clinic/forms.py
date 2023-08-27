@@ -3,6 +3,7 @@ from .models import Paciente
 
 
 class userForm(forms.ModelForm):
+
     class Meta:
         model = Paciente
         fields = ['nombre', 'apellido', 'edad', 'fecha_nacimiento']
