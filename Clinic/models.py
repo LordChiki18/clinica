@@ -1,13 +1,15 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 
 class Paciente(models.Model):
-    usuario = models.CharField(max_length=50, unique=True)
-    password = models.CharField(max_length=50)
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
+    edad = models.IntegerField()
+    fecha_nacimiento = models.DateField()
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Rac(models.Model):

@@ -33,6 +33,10 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # My apps
     'Clinic',
+    'users',
+
+    # Third party apps.
+    'django_bootstrap5',
 
     'django.contrib.admin',
     'django.contrib.auth',
