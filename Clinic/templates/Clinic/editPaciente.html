@@ -1,0 +1,12 @@
+{% extends "Clinic/base.html" %}
+{% block content %}
+    <p><a href="{% url 'Clinic:getPaciente' paciente.id %}">{{ paciente }}</a></p>
+
+    <p>Editar Topic:</p>
+
+    <form action="{% url 'Clinic:editPaciente' paciente.id %}" method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit">Guardar</button>
+    </form>
+{% endblock content %}

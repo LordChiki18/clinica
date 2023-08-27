@@ -6,8 +6,12 @@
     {% load django_bootstrap5 %}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css" integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/solid.min.css" integrity="sha512-yDUXOUWwbHH4ggxueDnC5vJv4tmfySpVdIcN1LksGZi8W8EVZv4uKGrQc0pVf66zS7LDhFJM7Zdeow1sw1/8Jw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/fontawesome.min.css"
+          integrity="sha512-SgaqKKxJDQ/tAUAAXzvxZz33rmn7leYDYfBP+YoMRSENhf3zJyx3SBASt/OfeQwBHA1nxMis7mM3EV/oYT6Fdw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/solid.min.css"
+          integrity="sha512-yDUXOUWwbHH4ggxueDnC5vJv4tmfySpVdIcN1LksGZi8W8EVZv4uKGrQc0pVf66zS7LDhFJM7Zdeow1sw1/8Jw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clinica</title>
     <style>
@@ -42,7 +46,7 @@
         }
 
         .site-footer .icon {
-	        font-size: 20px;
+            font-size: 20px;
         }
 
         .site-footer .love .icon {
@@ -51,6 +55,9 @@
             margin-right: 2px;
         }
 
+        h1 {
+            text-align: center;
+        }
         /* Add more custom styles as needed */
     </style>
 </head>
@@ -60,7 +67,7 @@
     <h1>
         <a href="{% url 'Clinic:index' %}">Bienvenido a la Clinica</a>
     </h1>
-    <p style="font-style: italic">Registra tus signos vitales</p>
+    <p style="font-style: italic" >Registra tus signos vitales</p>
     <hr>
     <ul>
         {% if user.is_authenticated %}
@@ -70,7 +77,13 @@
             <li>
                 <a href="{% url 'users:logout' %}">Log out</a>
             </li>
+            <li>
+                <a href="{% url 'Clinic:getPacientes' %}">Pacientes</a>
+            </li>
         {% else %}
+            <li>
+                <a href="{% url 'Clinic:index' %}">Menu</a>
+            </li>
             <li>
                 <a href="{% url 'users:register' %}">Register</a>
             </li>
@@ -78,9 +91,6 @@
                 <a href="{% url 'users:login' %}">Log in</a>
             </li>
         {% endif %}
-        <li>
-            <a href="{% url 'Clinic:getPacientes' %}">Pacientes</a>
-        </li>-->
     </ul>
 </header>
 <main role="main" class="container">

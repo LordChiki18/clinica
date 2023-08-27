@@ -18,5 +18,9 @@ urlpatterns = [
     # Pagina para editar un nuevo Rac
     path('edit_rac/<int:rac_id>/', views.editRac, name='editRac'),
     # Pagina para eliminar un nuevo Rac
-    path('remove_rac/<int:rac_id>', views.removeRac, name='removeRac')
+    path('remove_rac/<int:rac_id>', views.removeRac, name='removeRac'),
+    # Pagina para editar un usuario
+    path('edit_usuario/<int:paciente_id>', views.editPaciente, name='editPaciente'),
+    # Pagina para eliminar un usuario
+    path('remove_paciente/<int:paciente_id>', views.removePaciente, name='removePaciente'),
 ]

@@ -12,7 +12,6 @@ def index(request):
 
 @login_required
 def getPacientes(request):
-
     pacientes = Paciente.objects.filter(owner=request.user).order_by('date_added')
     context = {'pacientes': pacientes}
     return render(request, 'Clinic/pacientes.html', context)
@@ -68,6 +67,7 @@ def newRac(request, paciente_id):
     return render(request, 'Clinic/newRac.html', context)
 
 
+@login_required
 def editRac(request, rac_id):
     rac = Rac.objects.get(id=rac_id)
     paciente = rac.paciente
@@ -85,6 +85,8 @@ def editRac(request, rac_id):
     context = {'rac': rac, 'paciente': paciente, 'form': form}
     return render(request, 'Clinic/editRac.html', context)
 
+
+@login_required
 def removeRac(request, rac_id):
     rac = Rac.objects.get(id=rac_id)
     paciente = rac.paciente
@@ -94,10 +96,35 @@ def removeRac(request, rac_id):
     return redirect('Clinic:getPaciente', paciente_id=paciente.id)
 
 
+@login_required
+def editPaciente(request, paciente_id):
+    paciente = Paciente.objects.get(id=paciente_id)
+    if paciente.owner != request.user:
+        raise Http404
+
+    if request.method != 'POST':
+        form = userForm(instance=paciente)
+    else:
+        form = userForm(instance=paciente, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('Clinic:getPaciente')
+
+    context = {'paciente': paciente, 'form': form}
+    return render(request, 'Clinic/editPaciente.html', context)
+
+
+@login_required
+def removePaciente(request, paciente_id):
+    paciente = Paciente.objects.get(id=paciente_id)
+    if paciente.owner != request.user:
+        raise Http404
+    paciente.delete()
+    return redirect('Clinic:getPacientes')
+
+
 def handler404(request, *args, **argv):
     """Método para manejar los errores 404"""
     response = render('learning_logs/404.html', {})
     response.status_code = 404
     return response
-
-

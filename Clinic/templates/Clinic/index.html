@@ -2,10 +2,14 @@
 
 {% block page_header %}
     <div class="jumbotron">
-        <h1 class="display-3">Atencion Medica.</h1>
-        <p class="lead">Registro de Pacientes y sus respectivos signos vitales (RAC)</p>
-        <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}" role="button">Register &raquo;</a>
-
+        <h1 class="display-3" >Atencion Medica. <i class="fas fa-hospital"></i> </h1>
+        <h5 class="lead">Registro de Pacientes y sus respectivos signos vitales (RAC)</h5>
+        {% if not user.is_authenticated %}
+            <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}" role="button">Register &raquo;</a>
+            <a class="btn btn-lg btn-primary" href="{% url 'users:login' %}" role="button">Iniciar Sesion &raquo;</a>
+        {% else %}
+            <a class="btn btn-lg btn-primary" href="{% url 'users:logout' %}" role="button">Cerrar Sesion &raquo;</a>
+        {% endif %}
     </div>
 {% endblock page_header %}
 
@@ -24,10 +28,10 @@
     <section>
         <h2>Como funciona:</h2>
         <ol>
-            <li>Registra e inicia sesion</li>
-            <li>Registra pacientes</li>
-            <li>Registra tus signos vitales y editalos</li>
-            <li>Manten organizado por fecha tus signos</li>
+            <li>El usuario debe registrarse e iniciar sesion</li>
+            <li>El usuario puede registrar nombres y apellidos para tener un registro ya sea propio o de un familiar</li>
+            <li>El usuario puede puede registrar tus signos vitales, editarlos y eliminarlos</li>
+            <li>Manten organizado por fecha tus signos vitales</li>
         </ol>
     </section>
 

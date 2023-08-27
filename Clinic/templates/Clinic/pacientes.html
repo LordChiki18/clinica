@@ -1,7 +1,7 @@
 {% extends "Clinic/base.html" %}
 
 {% block page_header %}
-    <h1>Pacientes</h1>
+    <h1>Listado de pacientes</h1>
 {% endblock page_header %}
 
 {% block content %}
@@ -11,10 +11,12 @@
         <li>
             <h3><a href="{% url 'Clinic:getPaciente' paciente.id %}">{{ paciente }}</a></h3>
             <p>
+                <a href="{% url 'Clinic:editPaciente' paciente.id %}">Editar</a>
+                <a href="{% url 'Clinic:removePaciente' paciente.id %}">Eliminar</a>
             </p>
         </li>
     {% empty %}
-        <li><h3>No existen topics</h3></li>
+        <li><h3>No existen pacientes</h3></li>
     {% endfor %}
     </ul>
 {% endblock content %}
