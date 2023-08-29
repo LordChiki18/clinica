@@ -1,38 +1,38 @@
 {% extends "Clinic/base.html" %}
 
 {% block page_header %}
-    <div class="jumbotron">
-        <h1 class="display-3" >Atencion Medica. <i class="fas fa-hospital"></i> </h1>
-        <h5 class="lead">Registro de Pacientes y sus respectivos signos vitales (RAC)</h5>
+    <div class="jumbotron text-center bg-primary text-white">
+        <h1 class="display-4">Atención Médica <i class="fas fa-hospital"></i></h1>
+        <p class="lead">Registro de Pacientes y sus Signos Vitales (RAC)</p>
         {% if not user.is_authenticated %}
-            <a class="btn btn-lg btn-primary" href="{% url 'users:register' %}" role="button">Register &raquo;</a>
-            <a class="btn btn-lg btn-primary" href="{% url 'users:login' %}" role="button">Iniciar Sesion &raquo;</a>
+            <a class="btn btn-lg btn-secondary mr-3" href="{% url 'users:register' %}" role="button">Registrarse &raquo;</a>
+            <a class="btn btn-lg btn-success" href="{% url 'users:login' %}" role="button">Iniciar Sesión &raquo;</a>
         {% else %}
-            <a class="btn btn-lg btn-primary" href="{% url 'users:logout' %}" role="button">Cerrar Sesion &raquo;</a>
+            <a class="btn btn-lg btn-danger" href="{% url 'users:logout' %}" role="button">Cerrar Sesión &raquo;</a>
+            <a class="btn btn-lg btn-success" href="{% url 'Clinic:getPacientes' %}" role="button">Pacientes &raquo;</a>
         {% endif %}
     </div>
 {% endblock page_header %}
 
 {% block content %}
-    <section>
-        <h2>Funciones:</h2>
-        <ul>
-            <li>Registro de Pacientes.</li>
-            <li>Almacenamiento de datos de Pacientes y signos vitales.</li>
-            <li>Visualizacion de datos de Pacientes y signos vitales.</li>
-            <li>Edicion de datos de Pacientes y signos vitales.</li>
-            <li>Eliminacion de datos de Pacientes y signos vitales.</li>
+    <section class="mb-5">
+        <h2 class="mb-3">Funciones Principales</h2>
+        <ul class="list-group">
+            <li class="list-group-item">Registro de Pacientes.</li>
+            <li class="list-group-item">Almacenamiento de Datos de Pacientes y Signos Vitales.</li>
+            <li class="list-group-item">Visualización de Datos de Pacientes y Signos Vitales.</li>
+            <li class="list-group-item">Edición de Datos de Pacientes y Signos Vitales.</li>
+            <li class="list-group-item">Eliminación de Datos de Pacientes y Signos Vitales.</li>
         </ul>
     </section>
 
     <section>
-        <h2>Como funciona:</h2>
-        <ol>
-            <li>El usuario debe registrarse e iniciar sesion</li>
-            <li>El usuario puede registrar nombres y apellidos para tener un registro ya sea propio o de un familiar</li>
-            <li>El usuario puede puede registrar tus signos vitales, editarlos y eliminarlos</li>
-            <li>Manten organizado por fecha tus signos vitales</li>
+        <h2 class="mb-3">Cómo Funciona</h2>
+        <ol class="list-group">
+            <li class="list-group-item">Regístrate e inicia sesión como usuario.</li>
+            <li class="list-group-item">Registra nombres y apellidos para llevar un registro personal o familiar.</li>
+            <li class="list-group-item">Administra tus signos vitales: regístralos, edítalos y elimínalos.</li>
+            <li class="list-group-item">Mantén tus signos vitales organizados por fechas.</li>
         </ol>
     </section>
-
 {% endblock content %}

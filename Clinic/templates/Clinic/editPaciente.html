@@ -1,12 +1,80 @@
 {% extends "Clinic/base.html" %}
+
 {% block content %}
-    <p><a href="{% url 'Clinic:getPaciente' paciente.id %}">{{ paciente }}</a></p>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
 
-    <p>Editar Topic:</p>
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-    <form action="{% url 'Clinic:editPaciente' paciente.id %}" method='post'>
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button name="submit">Guardar</button>
-    </form>
+        .patient-details {
+            padding: 20px;
+            border-bottom: 1px solid #ccc;
+            text-align: center;
+        }
+
+
+        .edit-form {
+            padding: 20px;
+        }
+
+        .patient-form {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+
+        .btn-guardar {
+            background-color: #3358FF;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .btn-guardar:hover {
+            background-color: #006b1b;
+            color: #e0e0e0;
+        }
+    </style>
+
+    <div class="container">
+        <div class="patient-details">
+            <a class="btn btn-danger btn-lg" href="{% url 'Clinic:getPacientes' %}" role="button">Volver</a>
+        </div>
+
+        <div class="edit-form">
+            <h2>Editar Paciente</h2>
+            <form action="{% url 'Clinic:editPaciente' paciente.id %}" method='post' class="patient-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-guardar">Guardar</button>
+            </form>
+        </div>
+    </div>
 {% endblock content %}

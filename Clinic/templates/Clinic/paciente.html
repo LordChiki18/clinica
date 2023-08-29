@@ -1,36 +1,85 @@
 {% extends 'Clinic/base.html' %}
-{% block page_header %}
-    <h3>
-        Usuario: {{ paciente }}
-    </h3>
-{% endblock page_header %}
-
 {% block content %}
-    <h3>Rac</h3>
-    <p>Registra signos vitales y otros datos</p>
-    <p>
-        <a href="{% url 'Clinic:newRac' paciente.id %}">Agregar Registro</a>
-    </p>
-    <hr>
-    {% for dato in datos  %}
-        <div class="card mb-3">
-            <h4 class="card-header">
-                {{ dato.date_added|date:'M d, Y H:i' }} |
-                <small>
-                    <p>
-                        <a href="{% url 'Clinic:editRac' dato.id %}">Editar</a>
-                        <a href="{% url 'Clinic:removeRac' dato.id %}">Eliminar</a>
-                    </p>
-                </small>
-            </h4>
-            <div class="card-body">
-                <p>Frecuencia: {{ dato.Frecuencia }}</p>
-                <p>Presion: {{ dato.Presion }}</p>
-                <p>Edad: {{ dato.edad }}</p>
-                <p>Fecha de Nacimiento: {{ dato.fecha_nacimiento }}</p>
-            </div>
+    <style>
+        .user-header {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .rac-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .rac-header {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .add-record-btn {
+            margin-bottom: 20px;
+        }
+
+        .record-card {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .record-header {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .record-body {
+            padding: 15px;
+        }
+    </style>
+
+    <div class="user-header">
+        <h3>Usuario: {{ paciente }}</h3>
+    </div>
+
+    <div class="rac-section">
+        <h3 class="rac-header">Rac</h3>
+        <p>Registra signos vitales y otros datos</p>
+        <div class="add-record-btn">
+            <a class="btn btn-danger" href="{% url 'Clinic:getPacientes' %}">Volver</a>
+            <a class="btn btn-success" href="{% url 'Clinic:newRac' paciente.id %}">Agregar Registro</a>
         </div>
-    {% empty %}
-        <li>No existen registros.</li>
-    {% endfor %}
+        <hr>
+
+        {% for dato in datos %}
+            <div class="record-card">
+                <div class="record-header">
+                    {{ dato.paciente }}
+                    {{ dato.date_added|date:'M d, Y H:i' }}
+                    <div>
+                        <a class="btn btn-secondary btn-sm mr-2" href="{% url 'Clinic:editRac' dato.id %}" role="button">Editar</a>
+                        <a class="btn btn-danger btn-sm" href="{% url 'Clinic:removeRac' dato.id %}" role="button">Eliminar</a>
+                    </div>
+                </div>
+                <div class="record-body">
+                    <p>Frecuencia: {{ dato.Frecuencia }}</p>
+                    <p>Presion: {{ dato.Presion }}</p>
+                    <p>Edad: {{ dato.edad }}</p>
+                    <p>Fecha de Nacimiento: {{ dato.fecha_nacimiento }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <p>No existen registros.</p>
+        {% endfor %}
+    </div>
 {% endblock content %}

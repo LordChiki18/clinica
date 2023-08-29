@@ -1,4 +1,36 @@
 {% extends "Clinic/base.html" %}
 {% block content %}
-    <p>Ud. ha cerrado sesión correctamente. Vuelva pronto!</p>
+<style>
+    .logout-message {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .message-text {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .back-link {
+        color: #3498db;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+        color: #2980b9;
+    }
+</style>
+
+<div class="logout-message">
+    <p class="message-text">¡Ha cerrado sesión correctamente!</p>
+    <p class="message-text">¡Vuelva pronto!</p>
+    <p><a class="btn btn-danger btn-lg" href="{% url 'Clinic:index' %}">Ir a la página principal</a></p>
+</div>
 {% endblock content %}

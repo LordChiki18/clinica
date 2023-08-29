@@ -108,7 +108,7 @@ def editPaciente(request, paciente_id):
         form = userForm(instance=paciente, data=request.POST)
         if form.is_valid():
             form.save()
-            return redirect('Clinic:getPaciente')
+            return redirect('Clinic:getPacientes')
 
     context = {'paciente': paciente, 'form': form}
     return render(request, 'Clinic/editPaciente.html', context)

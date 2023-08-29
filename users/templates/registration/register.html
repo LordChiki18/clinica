@@ -1,11 +1,71 @@
 {% extends "Clinic/base.html" %}
 {% block content %}
- <form method="post" action="{% url 'users:register' %}">
- {% csrf_token %}
- {{ form.as_p }}
+<style>
+    .form-container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
 
- <button name="submit">Register</button>
- <input type="hidden" name="next" value="{% url 'Clinic:index' %}" />
- </form>
+    .form-title {
+        font-size: 24px;
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+    }
 
+    .registration-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    button {
+        background-color: #3498db;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #2980b9;
+    }
+
+    .hidden-input {
+        display: none;
+    }
+</style>
+
+<div class="form-container">
+    <h2 class="form-title">Register</h2>
+    <form method="post" action="{% url 'users:register' %}" class="registration-form">
+        {% csrf_token %}
+        {% for field in form %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+        {% endfor %}
+        <button type="submit">Register</button>
+        <input type="hidden" name="next" value="{% url 'Clinic:index' %}" class="hidden-input">
+    </form>
+</div>
 {% endblock content %}

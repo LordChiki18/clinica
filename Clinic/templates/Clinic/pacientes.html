@@ -1,22 +1,33 @@
 {% extends "Clinic/base.html" %}
 
 {% block page_header %}
-    <h1>Listado de pacientes</h1>
+    <h1 class="display-4">Listado de pacientes</h1>
 {% endblock page_header %}
 
 {% block content %}
-    <h3><a href="{% url 'Clinic:newPaciente' %}">Agregar Paciente</a></h3>
-    <ul>
-    {% for paciente in pacientes %}
-        <li>
-            <h3><a href="{% url 'Clinic:getPaciente' paciente.id %}">{{ paciente }}</a></h3>
-            <p>
-                <a href="{% url 'Clinic:editPaciente' paciente.id %}">Editar</a>
-                <a href="{% url 'Clinic:removePaciente' paciente.id %}">Eliminar</a>
-            </p>
-        </li>
-    {% empty %}
-        <li><h3>No existen pacientes</h3></li>
-    {% endfor %}
+    <div class="mb-4">
+        <a class="btn btn-danger btn-lg" href="{% url 'Clinic:index' %}" role="button">Volver</a>
+        <a class="btn btn-success btn-lg" href="{% url 'Clinic:newPaciente' %}" role="button">Agregar Paciente</a>
+    </div>
+    <ul class="list-group">
+        {% for paciente in pacientes %}
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3 class="mb-0">
+                        <a class="text-dark" href="{% url 'Clinic:getPaciente' paciente.id %}">{{ paciente }}</a>
+                    </h3>
+                    <div>
+                        <a class="btn btn-success btn-sm mr-2" href="{% url 'Clinic:getPaciente'  paciente.id %}"
+                           role="button">Registro</a>
+                        <a class="btn btn-secondary btn-sm mr-2" href="{% url 'Clinic:editPaciente' paciente.id %}"
+                           role="button">Editar</a>
+                        <a class="btn btn-danger btn-sm" href="{% url 'Clinic:removePaciente' paciente.id %}"
+                           role="button">Eliminar</a>
+                    </div>
+                </div>
+            </li>
+        {% empty %}
+            <li class="list-group-item"><h3 class="mb-0">No existen pacientes</h3></li>
+        {% endfor %}
     </ul>
 {% endblock content %}

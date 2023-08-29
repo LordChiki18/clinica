@@ -64,10 +64,10 @@
 
 <body>
 <header>
-    <h1>
+    <h1 class="display-3">
         <a href="{% url 'Clinic:index' %}">Bienvenido a la Clinica</a>
     </h1>
-    <p style="font-style: italic" >Registra tus signos vitales</p>
+    <p style="font-style: italic; font-size: 21px;text-align: center" >Registra tus signos vitales</p>
     <hr>
     <ul>
         {% if user.is_authenticated %}
@@ -108,7 +108,7 @@
 
 <footer>
     <hr>
-    <p class="love">Hecho con <i class="fa-solid fa-heart"></i> en el Diplomado en Backend - UCOM</p>
+    <p class="love">Hecho con <i class="fa-solid fa-heart"></i> en el Diplomado en Backend - UCOM - Hugo Carreras & Cristian Domecq</p>
 </footer>
 </body>
 </html>
