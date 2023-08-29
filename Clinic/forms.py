@@ -21,7 +21,7 @@ class racForm(forms.ModelForm):
         labels = {
             'Frecuencia': 'Frecuencia',
             'Presion': 'Presion',
-            'edad': 'Edad',
+            'Edad': 'Edad',
             'fecha_nacimiento': 'Fecha de Nacimiento',
         }
         widgets = {

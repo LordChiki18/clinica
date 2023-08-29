@@ -2,14 +2,87 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Paciente</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-primary {
+            background-color: #DF2E2B;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+    </style>
 </head>
 <body>
-    <h2> Registro de Paciente</h2>
+<div class="container">
+    <div class="patient-details">
+        <a class="btn btn-primary" href="{% url 'Clinic:getPacientes' %}">Volver</a>
+    </div>
+
+    <h2>Registro de Paciente</h2>
     <form action="{% url 'Clinic:newPaciente' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Registrar</button>
     </form>
+</div>
 </body>
 </html>

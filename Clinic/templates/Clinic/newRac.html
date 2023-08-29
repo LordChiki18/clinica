@@ -1,12 +1,80 @@
 {% extends "Clinic/base.html" %}
-
 {% block content %}
-    <p><a href="{% url 'Clinic:getPaciente' paciente.id %}">{{ user }}</a></p>
+    <style>
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-    <p>Agregar Datos:</p>
-    <form action="{% url 'Clinic:newRac' paciente.id %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button name='submit'>Guardar</button>
-    </form>
+
+        .form-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .data-form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+         button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .user-details {
+            padding: 20px;
+            border-bottom: 1px solid #ccc;
+            text-align: center;
+        }
+    </style>
+
+    <div class="form-container">
+        <div class="user-details">
+            <a style="text-align: center" class="btn btn-danger btn-lg" href="{% url 'Clinic:getPaciente' paciente.id %}">Volver</a>
+        </div>
+        <h2 class="form-title">Agregar Datos</h2>
+        <form action="{% url 'Clinic:newRac' paciente.id %}" method='post' class="data-form">
+            {% csrf_token %}
+            <label for="{{ form.Frecuencia.id_for_label }}">Frecuencia:</label>
+            {{ form.Frecuencia }}
+            <label for="{{ form.Presion.id_for_label }}">Presion:</label>
+            {{ form.Presion }}
+            <label for="{{ form.edad.id_for_label }}">Edad:</label>
+            {{ form.edad }}
+            <label for="{{ form.fecha_nacimiento.id_for_label }}">Fecha de Nacimiento:</label>
+            {{ form.fecha_nacimiento }}
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
 {% endblock content %}
